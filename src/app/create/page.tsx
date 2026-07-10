@@ -85,9 +85,10 @@ export default function CreatePin() {
       const res = await axios.post(`${apiUrl}/posts`, formData);
       setModerationResult(res.data.moderation);
       setPostData(res.data.post);
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert('Error submitting post.');
+      const errorMsg = err.response?.data?.message || err.message || 'Unknown error';
+      alert(`Error submitting post: ${errorMsg}`);
     } finally {
       setLoading(false);
     }
