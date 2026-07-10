@@ -29,7 +29,8 @@ export default function PostDetail() {
 
   useEffect(() => {
     if (params.id) {
-      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${params.id}`)
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+      axios.get(`${apiUrl}/posts/${params.id}`)
         .then(res => setPost(res.data))
         .catch(err => console.error(err));
     }
@@ -44,7 +45,8 @@ export default function PostDetail() {
     setModResult(null);
 
     try {
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${params.id}/comments`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+      const res = await axios.post(`${apiUrl}/posts/${params.id}/comments`, {
         content: comment
       });
 
